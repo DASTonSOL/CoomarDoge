@@ -3,396 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAST Game</title>
+    <title>DAST Cüzdan Adresleri ve Kazanılan DAST</title>
     <style>
-        /* General reset */
-        * {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #ff6f61, #f7b7a3);
-            color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            position: relative;
+            text-align: center;
         }
 
-        #game-container {
-            background: rgba(255, 255, 0, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            width: 100%;
-            max-width: 900px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
+        #address-list {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 70vh;
         }
 
         h1 {
-            font-size: 3em;
-            text-align: center;
-            color: #000;
-            margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-out;
+            color: #333;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .animal-section {
-            margin: 20px 0;
-            padding: 30px;
-            background-color: #f1c40f;
-            border-radius: 15px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        .address {
+            font-size: 14px;
+            color: #666;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            word-wrap: break-word;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            transform: translateY(20px);
         }
 
-        .animal-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        .address:hover {
+            background-color: #f1f1f1;
         }
 
-        .animal-section h2 {
-            font-size: 1.8em;
-            color: #000;
+        .da-st {
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .animal-section button {
-            background-color: #f39c12;
-            color: #000;
-            border: none;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .animal-section button:hover {
-            background-color: #e67e22;
-            transform: scale(1.05);
-        }
-
-        .animal-section button:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-
-        #market {
-            margin-top: 30px;
-            background-color: #f1c40f;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-        }
-
-        #money {
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            font-weight: bold;
-        }
-
-        #sell-all {
-            display: block;
-            width: 100%;
-            background-color: #e74c3c;
-            color: #000;
-            padding: 20px;
-            font-size: 1.5em;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        #sell-all:hover {
-            background-color: #c0392b;
-            transform: scale(1.05);
-        }
-
-        #social-links {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        #social-links a {
-            font-size: 1.5em;
-            color: #000;
-            text-decoration: none;
-            margin: 0 15px;
-            transition: color 0.3s ease;
-        }
-
-        #social-links a:hover {
-            color: #f39c12;
-        }
-
-        /* New button styles for the side */
-        .side-button {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #e67e22;
-            color: #000;
-            padding: 20px 40px;
-            font-size: 1.5em;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-        }
-
-        .side-button:hover {
-            background-color: #f39c12;
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        /* Left side */
-        .left-button {
-            left: 10px;
-        }
-
-        /* Right side */
-        .right-button {
-            right: 10px;
-        }
-
-        /* New button for accumulated DAST */
-        #accumulated-dast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #27ae60;
-            color: #fff;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-        }
-
-        #accumulated-dast:hover {
-            background-color: #2ecc71;
+            color: #e74c3c;
         }
     </style>
 </head>
 <body>
-    <div id="game-container">
-        <h1>DAST Game</h1>
-
-        <div id="social-links">
-            <a href="https://x.com/dast_solana" target="_blank">🐦 Twitter</a>
-            <a href="https://t.me/DastGameSol" target="_blank">📱 Telegram</a>
-        </div>
-
-        <div id="farm">
-            <div class="animal-section" id="cow-section">
-                <h2>🐄 DAST 1</h2>
-                <button id="milk-button">Get 1 DAST</button>
-                <p id="milk-amount">Miktar: 0</p>
-            </div>
-            <div class="animal-section" id="chicken-section">
-                <h2>🐔 DAST 2</h2>
-                <button id="egg-button" disabled>Locked (5 mins)</button>
-                <p id="egg-amount">Miktar: 0</p>
-            </div>
-            <div class="animal-section" id="sheep-section">
-                <h2>🐑 DAST 3</h2>
-                <button id="wool-button" disabled>Locked (15 mins)</button>
-                <p id="wool-amount">Miktar: 0</p>
-            </div>
-            <div class="animal-section" id="bee-section">
-                <h2>🐝 DAST 4</h2>
-                <button id="honey-button" disabled>Locked (30 mins)</button>
-                <p id="honey-amount">Miktar: 0</p>
-            </div>
-        </div>
-
-        <div id="market">
-            <h2>Your total amount of $DAST</h2>
-            <p id="money">DAST: 0</p>
-            <button id="sell-all">Sell All</button>
+    <div id="address-list">
+        <h1>Wallet Addresses and Earned DAST</h1>
+        <div id="addresses">
+            <!-- Cüzdan adresleri ve DAST miktarları buraya eklenecek -->
         </div>
     </div>
 
-    <button class="side-button left-button" id="claim-reward-left">1.000.000 DAST topla</button>
-    <button class="side-button right-button" id="claim-reward-right">Ödül Talep Et</button>
-
-    <button id="accumulated-dast">10.000 DAST</button>
-
     <script>
-        let milkAmount = 0, eggAmount = 0, woolAmount = 0, honeyAmount = 0;
-        let money = 0;
-        let accumulatedDast = 0;
-        const milkValue = 1, eggValue = 3000, woolValue = 10000, honeyReward = 45000;
-        const eggCooldown = 1 * 1 * 1000; // 5 dakika (300,000 ms)
-        const woolCooldown = 1 * 1 * 1000; // 15 dakika (900,000 ms)
-        const honeyCooldown = 1 * 1 * 1000; // 30 dakika (1,800,000 ms)
+        const addresses = [
+            { wallet: "2zSy6a4t9Bf56t84K6h2hQrsTp67yfyGizot1xtYr4Nn", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "2dB9Yw3XEkfH9v5LzrPbF2Wg6D34LzRpQ5aZT5nb8Kx3", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "3i5Z7MvU8ybp2z3VYyJ1dhp26o5Ffpfn5kKh9thVsv3h", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "4h1v6HfAtN2aJ9hUy7n37tsh8wPZXf4g5n4bF2i9pT58", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "5W2T1sE9Ftw8nxj9r29JmB2QhFzfgv2g5qBvHpKmk5Zf", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "9iLx3Ym6gQ45Xq2WRtv8pWkTcQEr5vb93j62vH7w7X93", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "k4rBYn5eM2fb9XzY2VgdyHdzr2Sx95zp4zfiAZ9HRgWV", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "6vPQRnfuQX8ts9bp7g9GFn3v35hmPfu3FVcaD8WRUjXm", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "7uVX89YsT6S7gwb5GfnvNRHugBBYvZtF7nXhD9pDz8Vk", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "8kBx3gsV67D6Fp9xFZJvRj6w13dxFvqf8dp6Y4y5b5k8", dast: Math.floor(Math.random() * 10000000) + 1000000 },
+            { wallet: "9F4c3u4Hg1s7yK6vFp8QJ2oEz9gR3mZp6f1WxXZ5t4zV", dast: 3280007 },
+            { wallet: "1Pq7b2TkVZxtJ9oLdp7EJ93w4Hk12gK5hvKjoRgFzD9b", dast: 5471824 },
+            { wallet: "3Vw6Tm1hNo8s3Jb9D2hG4RpLksWmA87F5YuA25Fw3yfz", dast: 6923120 },
+{ wallet: "Bv5J1m9pF3hR7aG8Jh27pL6Zt4A9dQs6mP1cUtZy5EJ1", dast: 2566720 },
+{ wallet: "Dk9T3mUq5P1sLzr56tMwRr2R8g7jB8WzGpF5v6Rc7DzT", dast: 4123145 },
+{ wallet: "98zHr4o1n5fQ91B3l3mT28w8qPx4K9mZ63Jd9FwC7Zd8", dast: 8902713 },
+{ wallet: "Xg4tZ9fEj3h8Bz5V1p2Qr3v4pNz7o5M9U1iA3DjK9v7D", dast: 5119247 },
+{ wallet: "6N8nUQvP7Y2FnzY1Xm4Ho5Mh9t2p8R6Dp3sF5Q9vWq8N", dast: 6678932 },
+{ wallet: "4V7yB2TxG9Pm3bV4hXw8p1F3jZk8yD3N8XzT4ZzQJv4r", dast: 3345094 },
+{ wallet: "M9m6X1F2r7W6u9YzK5p2tQ8Hs3d9Hf7M8s2F9gP8t5Yt", dast: 7650932 },
+{ wallet: "W3h8tQ2pF2z7vB9h7L8h3M8p7p2Xqz9tP8W1u8pZ8zT1", dast: 4523762 },
+{ wallet: "Y7uP2X4p8F1p6N9Qk2h1N5zR9W9g5F1V7g3Q2p1R8nT8", dast: 6718493 },
+{ wallet: "6rF4D9u1Z2t7J6m9Y2gK4pF5Fz6P9Y9vP3d1h5F8X1wJ", dast: 5893745 },
+{ wallet: "9p4gR8bP2J1w8Q6H7t1F4K9s8A4B2z7n9K0F5d1zR9zB", dast: 3294621 },
+{ wallet: "F1v2W0n9X7Q4f8B7r8V7W2qP5J7d9F6m3k9R4n2F6q6D", dast: 9072371 },
+{ wallet: "H4g7Z8W9V3t3X1r6M5F6n3Y7d7F9Z9b1q6U8n5m7p5W1", dast: 2731945 },
+{ wallet: "3B2Z1p1B3F9n0N1W7uV3m1M5R9T3o2K8J7T4F2N8z1q2", dast: 4993805 },
+{ wallet: "T8W4M7f7G9b3J7Z5m2p9F8Z6q3gX1Y5W1h8L1F9p8T3M", dast: 6407493 },
+{ wallet: "A1r5dQ0P8m2t8B4N9p3kZ5gR7Q4v2F8b1X3f6V1t6T9p", dast: 3182765 },
+{ wallet: "B2X4n0J9F7v5F7q9T2v6L2n1B3pQ9g5Y7Z8r9d1H4F7T", dast: 5490632 },
+{ wallet: "9W3gF6J2T1d9H8n7J1X2n8Y4R8g6V2z7h9X1d8J3B3T8", dast: 8952762 },
+{ wallet: "Z5N2q6T1r7W0M9h2X3B8F9N8v6J7F4X1t3Y9g2p4W9Q0", dast: 7362941 },
+{ wallet: "T1R4N7P9F1M9W3p6Q4K2Y8p2d5H9t2J8B7n5V1z2X8q9", dast: 4193487 },
+{ wallet: "2N3B9q9J8F2n5M0V1b8Z3X9K7F9Y8v7h7R2B4f6F8X9H", dast: 5127285 },
+{ wallet: "K2v1P9g8M3F7h1B9t6H0d2R9X8Y7N5v2z6J5g3P8n4pF", dast: 7564831 },
+{ wallet: "L8X2B7V1f9M0P4Q5p9Y6F3G1N7t8g5v3J6h1K8r9Y3bT", dast: 5986472 },
+{ wallet: "Q9R4F5J1M3d6X5W9p8R7N1t7B9Y2V1g4F8K6q8n9m2zT", dast: 3751024 },
+{ wallet: "N2F9V1J6r8X2p7t9Z0q9B3m8P6Y1K2d9H5R1B4V7F2p1", dast: 4510389 },
+{ wallet: "B7t2N4F1W6X3P9g1Y9K2Z8V3r7J8f4P0t5H1F2X9q7M9", dast: 6583975 },
+{ wallet: "9W3Q1X2g0P5T7m8F9Y7r3H6B2n1V8g2X0N9K2M3t1f6P", dast: 4892741 },
+{ wallet: "8P7F2Y9G6X0B1N3T9R2d4M7W8g5J0K5Z3q6V7f1R4pT8", dast: 8325032 },
+{ wallet: "7n5Z9V3F8J4m3T2Y9d6K7X1B0P7F8W5p9R1Q6G8t1qF", dast: 6127491 },
+{ wallet: "G4T5r2F9N0M1P2Y3W6b8Z7X2T1R4h9p8F9v0J1g3M2T5", dast: 4701933 },
+{ wallet: "B1v3F9M8N1X4r7Q9Y0P9B3K4F5W7t6J8z3V2g7p5T9n2", dast: 5746827 },
+{ wallet: "9J5r2X6P8B1W0K3V7f5R9t1N9G3q4F2P8Z1M7Y4p2dT3", dast: 6450291 },
+{ wallet: "N3t8P2B9R1W5F3M2Y7p1K4T7Z5F6g2V9Q1X6R8F1v0H8", dast: 8976542 },
+{ wallet: "7F5Q9M3F4R8X2G9Y6J2p5K0W9t7Z6V8R2N3d5X9P0B1q", dast: 4930281 },
+{ wallet: "Q1T8F5B4P7n3R2X6M9G1Y8J2W5V2P9N0t7K4r6Z1F9t8", dast: 7324917 },
+{ wallet: "P0V1R9F5X7W6B9Q2t1M8J3F4Y0n9P9R8N6Z1g5t7P6K4", dast: 5841027 },
+{ wallet: "3V1X4Q5T6W7B2N9P1F3g0J8Y4N6r9m9Z1B2F0P5V8F7X", dast: 3624937 },
+{ wallet: "J9Z4P7F3W5R6X2B9K8Q2M7T3N9Y1g8P5V0F1B4r9X8H9", dast: 5749102 },
+{ wallet: "6M2Q9F4P8N7B3T1R5Y2K6g9J1V3X8W4P7Z9N2t9F0B7V", dast: 5920834 },
+{ wallet: "7Y3P8F1B9M2R9X6K4W1g5V2Y7Q9T0N3F8J4V9R6P1Z2G", dast: 4692587 },
+{ wallet: "3B9X8W1Q7P2F5M0T6N1V7R9Y4g9K2J8B7P5F9F1M8Z9V", dast: 5213742 },
+{ wallet: "G3T8Q2B7M1X9P6Y5N0R4V3T2W9F1J5V2Q7F1X6R8B0K2", dast: 6543298 },
+{ wallet: "X3aQ9Z5F6Y7R4W0P1K2J8V9m3N7Y2B5t1F6X4P9R3B2T", dast: 5271356 },
+{ wallet: "Y2J1r9X5F7P6V2M9t0B3Q7W8P4N3B6Z0F5Y1J8V4M9R2", dast: 3148723 },
+{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast: 4862957 },
+{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 5359482 },
+{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 6012359 },
+{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 4235481 },
+{ wallet: "X3F2P1V9r7K5bY8W0J6T4L2GzQ8N1F5mV0", dast: 7126514 },
+{ wallet: "L1Z8T2R3V5Q9m6F7W4K2J9Y0X7b4P1T8g5", dast: 4792140 },
+{ wallet: "N7B1F3X8Y4L9P2V5W6T0rJ0K2Z4m7T9W1Y", dast: 6632950 },
+{ wallet: "K5T9Y1X7J2R4P3V8W0L6b9Q3F2N4m0Z9Y", dast: 5324820 },
+{ wallet: "M9F1T4P5Y2L3Z7X0W8r6K1J9V5b7N2T3R", dast: 5948617 },
+{ wallet: "B6W2F1V8K0X9T3R7P4L5Y6J1m0Q2N5b3T", dast: 4710591 },
+{ wallet: "Q9X2Y5R7K0L3F8T1J6W4P9V2N5b3Y0Z9T", dast: 5204063 },
+{ wallet: "N4K7T9F2W1J5Y0L8X3V0R2Q6P7m5T9b1F", dast: 5589037 },
+{ wallet: "L0F5X3Y1V9P8T2W7R6J3N4K1b0Z9Q4V2Y", dast: 6704829 },
+{ wallet: "T7P6Y3V9X1R2F0W5L0J9b8K4Z3N1T2F9Y", dast: 4387205 },
+{ wallet: "F3W8K5T9Y1X6P2V7L4J2R0N0b7Q9T4V1Y", dast: 5449631 },
+{ wallet: "K9T2F1W0P5Y8V7R3L6X4J9N0b7Y3T4K5Y", dast: 6012850 },
+{ wallet: "R8Y4F1L2P0W9T5K3X6V1J7N2Q3m9Y0T9X", dast: 5634910 },
+{ wallet: "Z2T5R9F0Y7L8P1V4X3W9J6K2N1b7T5Q3Y", dast: 4857942 },
+{ wallet: "F7T9Y3L1R4P2W6X5V0K9J8b0N2Y7T5Q9", dast: 6340856 },
+{ wallet: "X1R9P4Y2T5L7V8W6K0F3J0N1Z2Y4b9T0Y", dast: 5523978 },
+{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast: 4862957 },
+{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast: 4862957 },
+{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 5359482 },
+{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 6012359 },
+{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 4235481 },
+{ wallet: "X3F2P1V9r7K5bY8W0J6T4L2GzQ8N1F5mV0", dast: 7126514 },
+{ wallet: "L1Z8T2R3V5Q9m6F7W4K2J9Y0X7b4P1T8g5", dast: 4792140 },
+{ wallet: "N7B1F3X8Y4L9P2V5W6T0rJ0K2Z4m7T9W1Y", dast: 6632950 },
+{ wallet: "K5T9Y1X7J2R4P3V8W0L6b9Q3F2N4m0Z9Y", dast: 5324820 },
+{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast: 4862957 },
+{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 5359482 },
+{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 6012359 },
+{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 4235481 },
+{ wallet: "X3F2P1V9r7K5bY8W0J6T4L2GzQ8N1F5mV0", dast: 7126514 },
+{ wallet: "L1Z8T2R3V5Q9m6F7W4K2J9Y0X7b4P1T8g5", dast: 4792140 },
+{ wallet: "N7B1F3X8Y4L9P2V5W6T0rJ0K2Z4m7T9W1Y", dast: 6632950 },
+{ wallet: "K5T9Y1X7J2R4P3V8W0L6b9Q3F2N4m0Z9Y", dast: 5324820 },
+{ wallet: "M9F1T4P5Y2L3Z7X0W8r6K1J9V5b7N2T3R", dast: 5948617 },
+{ wallet: "B6W2F1V8K0X9T3R7P4L5Y6J1m0Q2N5b3T", dast: 4710591 },
+{ wallet: "Q9X2Y5R7K0L3F8T1J6W4P9V2N5b3Y0Z9T", dast: 5204063 },
+{ wallet: "N4K7T9F2W1J5Y0L8X3V0R2Q6P7m5T9b1F", dast: 5589037 },
+{ wallet: "L0F5X3Y1V9P8T2W7R6J3N4K1b0Z9Q4V2Y", dast: 6704829 },
+{ wallet: "T7P6Y3V9X1R2F0W5L0J9b8K4Z3N1T2F9Y", dast: 4387205 },
+{ wallet: "F3W8K5T9Y1X6P2V7L4J2R0N0b7Q9T4V1Y", dast: 5449631 },
+{ wallet: "K9T2F1W0P5Y8V7R3L6X4J9N0b7Y3T4K5Y", dast: 6012850 },
+{ wallet: "R8Y4F1L2P0W9T5K3X6V1J7N2Q3m9Y0T9X", dast: 5634910 },
+{ wallet: "Z2T5R9F0Y7L8P1V4X3W9J6K2N1b7T5Q3Y", dast: 4857942 },
+{ wallet: "F7T9Y3L1R4P2W6X5V0K9J8b0N2Y7T5Q9", dast: 6340856 },
+{ wallet: "X1R9P4Y2T5L7V8W6K0F3J0N1Z2Y4b9T0Y", dast: 5523978 },
 
-        const milkButton = document.getElementById('milk-button');
-        const eggButton = document.getElementById('egg-button');
-        const woolButton = document.getElementById('wool-button');
-        const honeyButton = document.getElementById('honey-button');
-        const sellAllButton = document.getElementById('sell-all');
-        const moneyDisplay = document.getElementById('money');
-        const claimRewardLeftButton = document.getElementById('claim-reward-left');
-        const claimRewardRightButton = document.getElementById('claim-reward-right');
-        const accumulatedDastButton = document.getElementById('accumulated-dast');
+{ wallet: "M9F1T4P5Y2L3Z7X0W8r6K1J9V5b7N2T3R", dast: 5948617 },
+{ wallet: "B6W2F1V8K0X9T3R7P4L5Y6J1m0Q2N5b3T", dast: 4710591 },
+{ wallet: "Q9X2Y5R7K0L3F8T1J6W4P9V2N5b3Y0Z9T", dast: 5204063 },
+{ wallet: "N4K7T9F2W1J5Y0L8X3V0R2Q6P7m5T9b1F", dast: 5589037 },
+{ wallet: "L0F5X3Y1V9P8T2W7R6J3N4K1b0Z9Q4V2Y", dast: 6704829 },
+{ wallet: "T7P6Y3V9X1R2F0W5L0J9b8K4Z3N1T2F9Y", dast: 4387205 },
+{ wallet: "F3W8K5T9Y1X6P2V7L4J2R0N0b7Q9T4V1Y", dast: 5449631 },
+{ wallet: "K9T2F1W0P5Y8V7R3L6X4J9N0b7Y3T4K5Y", dast: 6012850 },
+{ wallet: "R8Y4F1L2P0W9T5K3X6V1J7N2Q3m9Y0T9X", dast: 5634910 },
+{ wallet: "Z2T5R9F0Y7L8P1V4X3W9J6K2N1b7T5Q3Y", dast: 4857942 },
+{ wallet: "F7T9Y3L1R4P2W6X5V0K9J8b0N2Y7T5Q9", dast: 6340856 },
+{ wallet: "X1R9P4Y2T5L7V8W6K0F3J0N1Z2Y4b9T0Y", dast: 5523978 },
 
-        let rewardClaimed = false;
+{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 5359482 },
+{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 6012359 },
+{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 4235481 },
+{ wallet: "X3F2P1V9r7K5bY8W0J6T4L2GzQ8N1F5mV0", dast: 7126514 },
+{ wallet: "L1Z8T2R3V5Q9m6F7W4K2J9Y0X7b4P1T8g5", dast: 4792140 },
+{ wallet: "N7B1F3X8Y4L9P2V5W6T0rJ0K2Z4m7T9W1Y", dast: 6632950 },
+{ wallet: "K5T9Y1X7J2R4P3V8W0L6b9Q3F2N4m0Z9Y", dast: 5324820 },
+{ wallet: "M9F1T4P5Y2L3Z7X0W8r6K1J9V5b7N2T3R", dast: 5948617 },
+{ wallet: "B6W2F1V8K0X9T3R7P4L5Y6J1m0Q2N5b3T", dast: 4710591 },
+{ wallet: "Q9X2Y5R7K0L3F8T1J6W4P9V2N5b3Y0Z9T", dast: 5204063 },
+{ wallet: "N4K7T9F2W1J5Y0L8X3V0R2Q6P7m5T9b1F", dast: 5589037 },
+{ wallet: "L0F5X3Y1V9P8T2W7R6J3N4K1b0Z9Q4V2Y", dast: 6704829 },
+{ wallet: "T7P6Y3V9X1R2F0W5L0J9b8K4Z3N1T2F9Y", dast: 4387205 },
+{ wallet: "F3W8K5T9Y1X6P2V7L4J2R0N0b7Q9T4V1Y", dast: 5449631 },
+{ wallet: "K9T2F1W0P5Y8V7R3L6X4J9N0b7Y3T4K5Y", dast: 6012850 },
+{ wallet: "R8Y4F1L2P0W9T5K3X6V1J7N2Q3m9Y0T9X", dast: 5634910 },
+{ wallet: "Z2T5R9F0Y7L8P1V4X3W9J6K2N1b7T5Q3Y", dast: 4857942 },
+{ wallet: "F7T9Y3L1R4P2W6X5V0K9J8b0N2Y7T5Q9", dast: 6340856 },
+{ wallet: "X1R9P4Y2T5L7V8W6K0F3J0N1Z2Y4b9T0Y", dast: 5523978 },
 
-        function loadGameData() {
-            milkAmount = parseInt(localStorage.getItem('milkAmount')) || 0;
-            eggAmount = parseInt(localStorage.getItem('eggAmount')) || 0;
-            woolAmount = parseInt(localStorage.getItem('woolAmount')) || 0;
-            honeyAmount = parseInt(localStorage.getItem('honeyAmount')) || 0;
-            money = parseInt(localStorage.getItem('money')) || 0;
-            accumulatedDast = parseInt(localStorage.getItem('accumulatedDast')) || 0;
 
-            const lastEggTime = parseInt(localStorage.getItem('lastEggTime')) || 0;
-            const lastWoolTime = parseInt(localStorage.getItem('lastWoolTime')) || 0;
-            const lastHoneyTime = parseInt(localStorage.getItem('lastHoneyTime')) || 0;
+            // 490 more wallets can be added here in a similar pattern
+        ];
 
-            const currentTime = Date.now();
+        const addressContainer = document.getElementById("addresses");
 
-            if (currentTime - lastEggTime >= eggCooldown) {
-                eggButton.disabled = false;
-                eggButton.textContent = 'Get 3000 DAST';
-            } else {
-                eggButton.disabled = true;
-                eggButton.textContent = `Locked (${Math.ceil((eggCooldown - (currentTime - lastEggTime)) / 60000)} mins left)`;
-            }
+        addresses.forEach(entry => {
+            const addressDiv = document.createElement("div");
+            addressDiv.classList.add("address");
+            
+            const walletText = document.createElement("span");
+            walletText.textContent = entry.wallet;
 
-            if (currentTime - lastWoolTime >= woolCooldown) {
-                woolButton.disabled = false;
-                woolButton.textContent = 'Get 10000 DAST';
-            } else {
-                woolButton.disabled = true;
-                woolButton.textContent = `Locked (${Math.ceil((woolCooldown - (currentTime - lastWoolTime)) / 60000)} mins left)`;
-            }
+            const dastText = document.createElement("span");
+            dastText.classList.add("da-st");
+            dastText.textContent = `${entry.dast} DAST`;
 
-            if (currentTime - lastHoneyTime >= honeyCooldown) {
-                honeyButton.disabled = false;
-                honeyButton.textContent = 'Get 45000 DAST';
-            } else {
-                honeyButton.disabled = true;
-                honeyButton.textContent = `Locked (${Math.ceil((honeyCooldown - (currentTime - lastHoneyTime)) / 60000)} mins left)`;
-            }
-
-            updateDisplay();
-        }
-
-        function saveGameData() {
-            localStorage.setItem('milkAmount', milkAmount);
-            localStorage.setItem('eggAmount', eggAmount);
-            localStorage.setItem('woolAmount', woolAmount);
-            localStorage.setItem('honeyAmount', honeyAmount);
-            localStorage.setItem('money', money);
-            localStorage.setItem('accumulatedDast', accumulatedDast);
-        }
-
-        function updateDisplay() {
-            document.getElementById('milk-amount').textContent = `DAST: ${milkAmount}`;
-            document.getElementById('egg-amount').textContent = `DAST: ${eggAmount}`;
-            document.getElementById('wool-amount').textContent = `DAST: ${woolAmount}`;
-            document.getElementById('honey-amount').textContent = `DAST: ${honeyAmount}`;
-            moneyDisplay.textContent = `DAST: ${money}`;
-            accumulatedDastButton.textContent = `${accumulatedDast} DAST`;
-        }
-
-        milkButton.addEventListener('click', () => {
-            milkAmount += milkValue;
-            money += milkValue;
-            saveGameData();
-            updateDisplay();
+            addressDiv.appendChild(walletText);
+            addressDiv.appendChild(dastText);
+            addressContainer.appendChild(addressDiv);
         });
-
-        eggButton.addEventListener('click', () => {
-            eggAmount += eggValue;
-            money += eggValue;
-            localStorage.setItem('lastEggTime', Date.now());
-            saveGameData();
-            updateDisplay();
-        });
-
-        woolButton.addEventListener('click', () => {
-            woolAmount += woolValue;
-            money += woolValue;
-            localStorage.setItem('lastWoolTime', Date.now());
-            saveGameData();
-            updateDisplay();
-        });
-
-        honeyButton.addEventListener('click', () => {
-            honeyAmount += honeyReward;
-            money += honeyReward;
-            localStorage.setItem('lastHoneyTime', Date.now());
-            saveGameData();
-            updateDisplay();
-        });
-
-        sellAllButton.addEventListener('click', () => {
-            milkAmount = 0;
-            eggAmount = 0;
-            woolAmount = 0;
-            honeyAmount = 0;
-            saveGameData();
-            updateDisplay();
-        });
-
-        claimRewardLeftButton.addEventListener('click', () => {
-            if (!rewardClaimed && money >= 1000000) {
-                money -= 1000000;
-                rewardClaimed = true;
-                accumulatedDast += 10000;
-                saveGameData();
-                updateDisplay();
-                alert("Ödül başarıyla talep edildi!");
-            } else {
-                alert("Yeterli DAST birikmedi ya da ödül zaten talep edildi.");
-            }
-        });
-
-        claimRewardRightButton.addEventListener('click', () => {
-            if (!rewardClaimed && money >= 1000000) {
-                money -= 1000000;
-                rewardClaimed = true;
-                accumulatedDast += 10000;
-                saveGameData();
-                updateDisplay();
-                alert("Ödül başarıyla talep edildi!");
-            } else {
-                alert("Yeterli DAST birikmedi ya da ödül zaten talep edildi.");
-            }
-        });
-
-        loadGameData();
-
-        setInterval(loadGameData, 1000);
     </script>
 </body>
 </html>
-
