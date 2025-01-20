@@ -3,201 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Çiftlik Oyunu</title>
+    <title>DAST Game</title>
     <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #ffeb3b;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #ff6f61, #f7b7a3);
+            color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
         #game-container {
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 1000px;
+            background: rgba(255, 255, 0, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 3em;
+            text-align: center;
+            color: #000;
             margin-bottom: 20px;
-        }
-
-        #farm {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-
-        .animal-section {
-            margin: 10px;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border-radius: 8px;
-            width: 200px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .animal-section:hover {
-            transform: scale(1.1);
-        }
-
-        button {
-            padding: 10px;
-            margin: 10px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #45a049;
-            transform: scale(1.1);
-        }
-
-        p {
-            font-size: 16px;
-        }
-
-        #market {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        #wallet-section {
-            margin-top: 20px;
-            text-align: center;
+            animation: fadeIn 1.5s ease-out;
         }
 
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animal-section {
+            margin: 20px 0;
+            padding: 30px;
+            background-color: #f1c40f;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+
+        .animal-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .animal-section h2 {
+            font-size: 1.8em;
+            color: #000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .animal-section button {
+            background-color: #f39c12;
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .animal-section button:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        .animal-section button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        #market {
+            margin-top: 30px;
+            background-color: #f1c40f;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        #money {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        #sell-all {
+            display: block;
+            width: 100%;
+            background-color: #e74c3c;
+            color: #000;
+            padding: 20px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #sell-all:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        #social-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #social-links a {
+            font-size: 1.5em;
+            color: #000;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        #social-links a:hover {
+            color: #f39c12;
+        }
+
+        /* New button styles for the side */
+        .side-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #e67e22;
+            color: #000;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .side-button:hover {
+            background-color: #f39c12;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        /* Left side */
+        .left-button {
+            left: 10px;
+        }
+
+        /* Right side */
+        .right-button {
+            right: 10px;
+        }
+
+        /* New button for accumulated DAST */
+        #accumulated-dast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #27ae60;
+            color: #fff;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        #accumulated-dast:hover {
+            background-color: #2ecc71;
         }
     </style>
 </head>
 <body>
     <div id="game-container">
-        <h1>Dast Airdrop</h1>
+        <h1>DAST Game</h1>
+
+        <div id="social-links">
+            <a href="https://x.com/dast_solana" target="_blank">🐦 Twitter</a>
+            <a href="https://t.me/DastGameSol" target="_blank">📱 Telegram</a>
+        </div>
 
         <div id="farm">
-            <div id="cow-section" class="animal-section">
-                <h2>DAST 1</h2>
-                <button id="milk-button" disabled>Airdrop Al</button>
+            <div class="animal-section" id="cow-section">
+                <h2>🐄 DAST 1</h2>
+                <button id="milk-button">Get 1 DAST</button>
                 <p id="milk-amount">Miktar: 0</p>
             </div>
-
-            <div id="chicken-section" class="animal-section">
-                <h2>DAST 2</h2>
-                <button id="egg-button" disabled>Airdrop Al</button>
+            <div class="animal-section" id="chicken-section">
+                <h2>🐔 DAST 2</h2>
+                <button id="egg-button" disabled>Locked (5 mins)</button>
                 <p id="egg-amount">Miktar: 0</p>
             </div>
-
-            <div id="sheep-section" class="animal-section">
-                <h2>DAST 3</h2>
-                <button id="wool-button" disabled>Airdrop Al</button>
+            <div class="animal-section" id="sheep-section">
+                <h2>🐑 DAST 3</h2>
+                <button id="wool-button" disabled>Locked (15 mins)</button>
                 <p id="wool-amount">Miktar: 0</p>
             </div>
-
-            <div id="bee-section" class="animal-section">
-                <h2>DAST 4</h2>
-                <button id="honey-button" disabled>Airdrop Al</button>
+            <div class="animal-section" id="bee-section">
+                <h2>🐝 DAST 4</h2>
+                <button id="honey-button" disabled>Locked (30 mins)</button>
                 <p id="honey-amount">Miktar: 0</p>
-            </div>
-
-            <div id="pig-section" class="animal-section">
-                <h2>DAST 5</h2>
-                <button id="meat-button" disabled>Airdrop Al</button>
-                <p id="meat-amount">Miktar: 0</p>
-            </div>
-
-            <div id="goat-section" class="animal-section">
-                <h2>DAST 6</h2>
-                <button id="goat-milk-button" disabled>Airdrop Al</button>
-                <p id="goat-milk-amount">Miktar: 0</p>
-            </div>
-
-            <div id="horse-section" class="animal-section">
-                <h2>DAST 7</h2>
-                <button id="saddle-button" disabled>Airdrop Al</button>
-                <p id="saddle-amount">Miktar: 0</p>
-            </div>
-
-            <div id="goose-section" class="animal-section">
-                <h2>DAST 8</h2>
-                <button id="feather-button" disabled>Airdrop Al</button>
-                <p id="feather-amount">Miktar: 0</p>
             </div>
         </div>
 
         <div id="market">
-            <h2>Elinizdeki Toplam DAST Miktarı</h2>
+            <h2>Your total amount of $DAST</h2>
             <p id="money">DAST: 0</p>
-            <button id="sell-all" disabled>Hepsini topla</button>
-        </div>
-
-        <div id="wallet-section">
-            <button id="connect-wallet" onclick="connectWallet()">Phantom Cüzdanına Bağlan</button>
+            <button id="sell-all">Sell All</button>
         </div>
     </div>
 
-    <script>
-        const milkSound = new Audio('milk-sound.mp3');
-        const eggSound = new Audio('egg-sound.mp3');
-        const woolSound = new Audio('wool-sound.mp3');
-        const honeySound = new Audio('honey-sound.mp3');
-        const meatSound = new Audio('meat-sound.mp3');
-        const goatMilkSound = new Audio('goat-milk-sound.mp3');
-        const saddleSound = new Audio('saddle-sound.mp3');
-        const featherSound = new Audio('feather-sound.mp3');
-        const sellSound = new Audio('sell-sound.mp3');
+    <button class="side-button left-button" id="claim-reward-left">1.000.000 DAST topla</button>
+    <button class="side-button right-button" id="claim-reward-right">Ödül Talep Et</button>
 
+    <button id="accumulated-dast">10.000 DAST</button>
+
+    <script>
         let milkAmount = 0, eggAmount = 0, woolAmount = 0, honeyAmount = 0;
-        let meatAmount = 0, goatMilkAmount = 0, saddleAmount = 0, featherAmount = 0;
         let money = 0;
-        
-        const milkValue = 5, eggValue = 2, woolValue = 3, honeyValue = 4;
-        const meatValue = 7, goatMilkValue = 6, saddleValue = 10, featherValue = 2;
+        let accumulatedDast = 0;
+        const milkValue = 1, eggValue = 3000, woolValue = 10000, honeyReward = 45000;
+        const eggCooldown = 5 * 60 * 1000; // 5 dakika (300,000 ms)
+        const woolCooldown = 15 * 60 * 1000; // 15 dakika (900,000 ms)
+        const honeyCooldown = 1 * 1 * 1000; // 30 dakika (1,800,000 ms)
 
         const milkButton = document.getElementById('milk-button');
         const eggButton = document.getElementById('egg-button');
         const woolButton = document.getElementById('wool-button');
         const honeyButton = document.getElementById('honey-button');
-        const meatButton = document.getElementById('meat-button');
-        const goatMilkButton = document.getElementById('goat-milk-button');
-        const saddleButton = document.getElementById('saddle-button');
-        const featherButton = document.getElementById('feather-button');
         const sellAllButton = document.getElementById('sell-all');
         const moneyDisplay = document.getElementById('money');
+        const claimRewardLeftButton = document.getElementById('claim-reward-left');
+        const claimRewardRightButton = document.getElementById('claim-reward-right');
+        const accumulatedDastButton = document.getElementById('accumulated-dast');
+
+        let rewardClaimed = false;
 
         function loadGameData() {
             milkAmount = parseInt(localStorage.getItem('milkAmount')) || 0;
             eggAmount = parseInt(localStorage.getItem('eggAmount')) || 0;
             woolAmount = parseInt(localStorage.getItem('woolAmount')) || 0;
             honeyAmount = parseInt(localStorage.getItem('honeyAmount')) || 0;
-            meatAmount = parseInt(localStorage.getItem('meatAmount')) || 0;
-            goatMilkAmount = parseInt(localStorage.getItem('goatMilkAmount')) || 0;
-            saddleAmount = parseInt(localStorage.getItem('saddleAmount')) || 0;
-            featherAmount = parseInt(localStorage.getItem('featherAmount')) || 0;
             money = parseInt(localStorage.getItem('money')) || 0;
+            accumulatedDast = parseInt(localStorage.getItem('accumulatedDast')) || 0;
+
+            const lastEggTime = parseInt(localStorage.getItem('lastEggTime')) || 0;
+            const lastWoolTime = parseInt(localStorage.getItem('lastWoolTime')) || 0;
+            const lastHoneyTime = parseInt(localStorage.getItem('lastHoneyTime')) || 0;
+
+            const currentTime = Date.now();
+
+            if (currentTime - lastEggTime >= eggCooldown) {
+                eggButton.disabled = false;
+                eggButton.textContent = 'Get 3000 DAST';
+            } else {
+                eggButton.disabled = true;
+                eggButton.textContent = `Locked (${Math.ceil((eggCooldown - (currentTime - lastEggTime)) / 60000)} mins left)`;
+            }
+
+            if (currentTime - lastWoolTime >= woolCooldown) {
+                woolButton.disabled = false;
+                woolButton.textContent = 'Get 10000 DAST';
+            } else {
+                woolButton.disabled = true;
+                woolButton.textContent = `Locked (${Math.ceil((woolCooldown - (currentTime - lastWoolTime)) / 60000)} mins left)`;
+            }
+
+            if (currentTime - lastHoneyTime >= honeyCooldown) {
+                honeyButton.disabled = false;
+                honeyButton.textContent = 'Get 45000 DAST';
+            } else {
+                honeyButton.disabled = true;
+                honeyButton.textContent = `Locked (${Math.ceil((honeyCooldown - (currentTime - lastHoneyTime)) / 60000)} mins left)`;
+            }
 
             updateDisplay();
         }
@@ -207,11 +310,8 @@
             localStorage.setItem('eggAmount', eggAmount);
             localStorage.setItem('woolAmount', woolAmount);
             localStorage.setItem('honeyAmount', honeyAmount);
-            localStorage.setItem('meatAmount', meatAmount);
-            localStorage.setItem('goatMilkAmount', goatMilkAmount);
-            localStorage.setItem('saddleAmount', saddleAmount);
-            localStorage.setItem('featherAmount', featherAmount);
             localStorage.setItem('money', money);
+            localStorage.setItem('accumulatedDast', accumulatedDast);
         }
 
         function updateDisplay() {
@@ -219,108 +319,79 @@
             document.getElementById('egg-amount').textContent = `DAST: ${eggAmount}`;
             document.getElementById('wool-amount').textContent = `DAST: ${woolAmount}`;
             document.getElementById('honey-amount').textContent = `DAST: ${honeyAmount}`;
-            document.getElementById('meat-amount').textContent = `DAST: ${meatAmount}`;
-            document.getElementById('goat-milk-amount').textContent = `DAST: ${goatMilkAmount}`;
-            document.getElementById('saddle-amount').textContent = `DAST: ${saddleAmount}`;
-            document.getElementById('feather-amount').textContent = `DAST : ${featherAmount}`;
-            moneyDisplay.textContent = `Para: ${money}`;
-        }
-
-        async function connectWallet() {
-            if (window.solana && window.solana.isPhantom) {
-                try {
-                    const response = await window.solana.connect();
-                    document.getElementById('wallet-section').innerHTML = `<p>Cüzdan Bağlandı: ${response.publicKey}</p>`;
-                    milkButton.disabled = false;
-                    eggButton.disabled = false;
-                    woolButton.disabled = false;
-                    honeyButton.disabled = false;
-                    meatButton.disabled = false;
-                    goatMilkButton.disabled = false;
-                    saddleButton.disabled = false;
-                    featherButton.disabled = false;
-                    sellAllButton.disabled = false;
-                } catch (err) {
-                    alert("Cüzdan bağlanırken bir hata oluştu.");
-                }
-            } else {
-                alert("Phantom Cüzdanı yüklü değil!");
-            }
+            moneyDisplay.textContent = `DAST: ${money}`;
+            accumulatedDastButton.textContent = `${accumulatedDast} DAST`;
         }
 
         milkButton.addEventListener('click', () => {
-            milkAmount++;
-            milkSound.play();
+            milkAmount += milkValue;
+            money += milkValue;
             saveGameData();
             updateDisplay();
         });
 
         eggButton.addEventListener('click', () => {
-            eggAmount++;
-            eggSound.play();
+            eggAmount += eggValue;
+            money += eggValue;
+            localStorage.setItem('lastEggTime', Date.now());
             saveGameData();
             updateDisplay();
         });
 
         woolButton.addEventListener('click', () => {
-            woolAmount++;
-            woolSound.play();
+            woolAmount += woolValue;
+            money += woolValue;
+            localStorage.setItem('lastWoolTime', Date.now());
             saveGameData();
             updateDisplay();
         });
 
         honeyButton.addEventListener('click', () => {
-            honeyAmount++;
-            honeySound.play();
-            saveGameData();
-            updateDisplay();
-        });
-
-        meatButton.addEventListener('click', () => {
-            meatAmount++;
-            meatSound.play();
-            saveGameData();
-            updateDisplay();
-        });
-
-        goatMilkButton.addEventListener('click', () => {
-            goatMilkAmount++;
-            goatMilkSound.play();
-            saveGameData();
-            updateDisplay();
-        });
-
-        saddleButton.addEventListener('click', () => {
-            saddleAmount++;
-            saddleSound.play();
-            saveGameData();
-            updateDisplay();
-        });
-
-        featherButton.addEventListener('click', () => {
-            featherAmount++;
-            featherSound.play();
+            honeyAmount += honeyReward;
+            money += honeyReward;
+            localStorage.setItem('lastHoneyTime', Date.now());
             saveGameData();
             updateDisplay();
         });
 
         sellAllButton.addEventListener('click', () => {
-            money += (milkAmount * 5) + (eggAmount * 2) + (woolAmount * 3) + (honeyAmount * 4) +
-                     (meatAmount * 7) + (goatMilkAmount * 6) + (saddleAmount * 10) + (featherAmount * 2);
             milkAmount = 0;
             eggAmount = 0;
             woolAmount = 0;
             honeyAmount = 0;
-            meatAmount = 0;
-            goatMilkAmount = 0;
-            saddleAmount = 0;
-            featherAmount = 0;
-            sellSound.play();
             saveGameData();
             updateDisplay();
         });
 
+        claimRewardLeftButton.addEventListener('click', () => {
+            if (!rewardClaimed && money >= 1000000) {
+                money -= 1000000;
+                rewardClaimed = true;
+                accumulatedDast += 10000;
+                saveGameData();
+                updateDisplay();
+                alert("Ödül başarıyla talep edildi!");
+            } else {
+                alert("Yeterli DAST birikmedi ya da ödül zaten talep edildi.");
+            }
+        });
+
+        claimRewardRightButton.addEventListener('click', () => {
+            if (!rewardClaimed && money >= 1000000) {
+                money -= 1000000;
+                rewardClaimed = true;
+                accumulatedDast += 10000;
+                saveGameData();
+                updateDisplay();
+                alert("Ödül başarıyla talep edildi!");
+            } else {
+                alert("Yeterli DAST birikmedi ya da ödül zaten talep edildi.");
+            }
+        });
+
         loadGameData();
+
+        setInterval(loadGameData, 1000);
     </script>
 </body>
 </html>
