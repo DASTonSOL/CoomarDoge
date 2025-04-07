@@ -3,241 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet Addresses and Earned DAST</title>
+    <title>Coomardog Memecoin</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-
-        #address-list {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            max-height: 70vh;
-        }
-
-        h1 {
+            background-color: #f9f9f9;
             color: #333;
         }
-
-        .address {
-            font-size: 14px;
-            color: #666;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
+        header {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 1.2em;
             border-radius: 5px;
-            background-color: #f9f9f9;
-            word-wrap: break-word;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .cta-button:hover {
+            background-color: #ff4a4a;
+        }
+        .social-icons {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            margin-top: 20px;
         }
-
-        .address:hover {
-            background-color: #f1f1f1;
+        .social-icons a {
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 2em;
+            color: #333;
         }
-
-        .da-st {
-            font-weight: bold;
-            color: #e74c3c;
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        /* Mobil uyumluluk */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            .cta-button {
+                width: 90%;
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+            .social-icons a {
+                font-size: 1.5em;
+            }
+            footer {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="address-list">
-        <h1>Wallet Addresses and Earned DAST</h1>
-        <div id="addresses">
-            <!-- Cüzdan adresleri ve DAST miktarları buraya eklenecek -->
-        </div>
-    </div>
+    <header>
+        <h1>Coomardog Memecoin</h1>
+        <p>En eğlenceli memecoin deneyimi!</p>
+    </header>
 
-    <script>
-        const addresses = [
-            { wallet: "2zSy6a4t9Bf56t84K6h2hQrsTp67yfyGizot1xtYr4Nn", dast: 73120 },
-            { wallet: "2dB9Yw3XEkfH9v5LzrPbF2Wg6D34LzRpQ5aZT5nb8Kx3", dast: 54851 },
-            { wallet: "3i5Z7MvU8ybp2z3VYyJ1dhp26o5Ffpfn5kKh9thVsv3h", dast:15482 },
-            { wallet: "4h1v6HfAtN2aJ9hUy7n37tsh8wPZXf4g5n4bF2i9pT58", dast: 54691 },
-            { wallet: "5W2T1sE9Ftw8nxj9r29JmB2QhFzfgv2g5qBvHpKmk5Zf", dast: 25468 },
-            { wallet: "9iLx3Ym6gQ45Xq2WRtv8pWkTcQEr5vb93j62vH7w7X93", dast: 85479 },
-            { wallet: "k4rBYn5eM2fb9XzY2VgdyHdzr2Sx95zp4zfiAZ9HRgWV", dast:45689 },
-            { wallet: "6vPQRnfuQX8ts9bp7g9GFn3v35hmPfu3FVcaD8WRUjXm", dast: 325489 },
-            { wallet: "7uVX89YsT6S7gwb5GfnvNRHugBBYvZtF7nXhD9pDz8Vk", dast: 32145 },
-            { wallet: "8kBx3gsV67D6Fp9xFZJvRj6w13dxFvqf8dp6Y4y5b5k8", dast: 63120 },
-            { wallet: "9F4c3u4Hg1s7yK6vFp8QJ2oEz9gR3mZp6f1WxXZ5t4zV", dast: 78445 },
-            { wallet: "1Pq7b2TkVZxtJ9oLdp7EJ93w4Hk12gK5hvKjoRgFzD9b", dast: 74589 },
-            { wallet: "3Vw6Tm1hNo8s3Jb9D2hG4RpLksWmA87F5YuA25Fw3yfz", dast: 25894 },
-{ wallet: "Bv5J1m9pF3hR7aG8Jh27pL6Zt4A9dQs6mP1cUtZy5EJ1", dast: 25667 },
-{ wallet: "Dk9T3mUq5P1sLzr56tMwRr2R8g7jB8WzGpF5v6Rc7DzT", dast: 41245 },
-{ wallet: "98zHr4o1n5fQ91B3l3mT28w8qPx4K9mZ63Jd9FwC7Zd8", dast: 892713 },
-{ wallet: "Xg4tZ9fEj3h8Bz5V1p2Qr3v4pNz7o5M9U1iA3DjK9v7D", dast: 51147 },
-{ wallet: "6N8nUQvP7Y2FnzY1Xm4Ho5Mh9t2p8R6Dp3sF5Q9vWq8N", dast: 66789 },
-{ wallet: "4V7yB2TxG9Pm3bV4hXw8p1F3jZk8yD3N8XzT4ZzQJv4r", dast: 33494 },
-{ wallet: "M9m6X1F2r7W6u9YzK5p2tQ8Hs3d9Hf7M8s2F9gP8t5Yt", dast: 70932 },
-{ wallet: "W3h8tQ2pF2z7vB9h7L8h3M8p7p2Xqz9tP8W1u8pZ8zT1", dast: 43762 },
-{ wallet: "Y7uP2X4p8F1p6N9Qk2h1N5zR9W9g5F1V7g3Q2p1R8nT8", dast: 68493 },
-{ wallet: "6rF4D9u1Z2t7J6m9Y2gK4pF5Fz6P9Y9vP3d1h5F8X1wJ", dast: 53745 },
-{ wallet: "9p4gR8bP2J1w8Q6H7t1F4K9s8A4B2z7n9K0F5d1zR9zB", dast: 34621 },
-{ wallet: "F1v2W0n9X7Q4f8B7r8V7W2qP5J7d9F6m3k9R4n2F6q6D", dast: 92371 },
-{ wallet: "H4g7Z8W9V3t3X1r6M5F6n3Y7d7F9Z9b1q6U8n5m7p5W1", dast: 21945 },
-{ wallet: "3B2Z1p1B3F9n0N1W7uV3m1M5R9T3o2K8J7T4F2N8z1q2", dast: 43805 },
-{ wallet: "T8W4M7f7G9b3J7Z5m2p9F8Z6q3gX1Y5W1h8L1F9p8T3M", dast: 67493 },
-{ wallet: "A1r5dQ0P8m2t8B4N9p3kZ5gR7Q4v2F8b1X3f6V1t6T9p", dast: 32765 },
-{ wallet: "B2X4n0J9F7v5F7q9T2v6L2n1B3pQ9g5Y7Z8r9d1H4F7T", dast: 50632 },
-{ wallet: "9W3gF6J2T1d9H8n7J1X2n8Y4R8g6V2z7h9X1d8J3B3T8", dast: 82762 },
-{ wallet: "Z5N2q6T1r7W0M9h2X3B8F9N8v6J7F4X1t3Y9g2p4W9Q0", dast: 72941 },
-{ wallet: "T1R4N7P9F1M9W3p6Q4K2Y8p2d5H9t2J8B7n5V1z2X8q9", dast: 43487 },
-{ wallet: "2N3B9q9J8F2n5M0V1b8Z3X9K7F9Y8v7h7R2B4f6F8X9H", dast: 57285 },
-{ wallet: "K2v1P9g8M3F7h1B9t6H0d2R9X8Y7N5v2z6J5g3P8n4pF", dast: 74831 },
-{ wallet: "L8X2B7V1f9M0P4Q5p9Y6F3G1N7t8g5v3J6h1K8r9Y3bT", dast: 56472 },
-{ wallet: "Q9R4F5J1M3d6X5W9p8R7N1t7B9Y2V1g4F8K6q8n9m2zT", dast: 31024 },
-{ wallet: "N2F9V1J6r8X2p7t9Z0q9B3m8P6Y1K2d9H5R1B4V7F2p1", dast: 40389 },
-{ wallet: "B7t2N4F1W6X3P9g1Y9K2Z8V3r7J8f4P0t5H1F2X9q7M9", dast: 63975 },
-{ wallet: "9W3Q1X2g0P5T7m8F9Y7r3H6B2n1V8g2X0N9K2M3t1f6P", dast: 42741 },
-{ wallet: "8P7F2Y9G6X0B1N3T9R2d4M7W8g5J0K5Z3q6V7f1R4pT8", dast: 85032 },
-{ wallet: "7n5Z9V3F8J4m3T2Y9d6K7X1B0P7F8W5p9R1Q6G8t1qF", dast: 61491 },
-{ wallet: "G4T5r2F9N0M1P2Y3W6b8Z7X2T1R4h9p8F9v0J1g3M2T5", dast: 41933 },
-{ wallet: "B1v3F9M8N1X4r7Q9Y0P9B3K4F5W7t6J8z3V2g7p5T9n2", dast: 546827 },
-{ wallet: "9J5r2X6P8B1W0K3V7f5R9t1N9G3q4F2P8Z1M7Y4p2dT3", dast: 60291 },
-{ wallet: "N3t8P2B9R1W5F3M2Y7p1K4T7Z5F6g2V9Q1X6R8F1v0H8", dast: 86542 },
-{ wallet: "7F5Q9M3F4R8X2G9Y6J2p5K0W9t7Z6V8R2N3d5X9P0B1q", dast: 40281 },
-{ wallet: "Q1T8F5B4P7n3R2X6M9G1Y8J2W5V2P9N0t7K4r6Z1F9t8", dast: 74917 },
-{ wallet: "P0V1R9F5X7W6B9Q2t1M8J3F4Y0n9P9R8N6Z1g5t7P6K4", dast: 51027 },
-{ wallet: "3V1X4Q5T6W7B2N9P1F3g0J8Y4N6r9m9Z1B2F0P5V8F7X", dast: 34937 },
-{ wallet: "J9Z4P7F3W5R6X2B9K8Q2M7T3N9Y1g8P5V0F1B4r9X8H9", dast: 59102 },
-{ wallet: "6M2Q9F4P8N7B3T1R5Y2K6g9J1V3X8W4P7Z9N2t9F0B7V", dast: 50834 },
-{ wallet: "7Y3P8F1B9M2R9X6K4W1g5V2Y7Q9T0N3F8J4V9R6P1Z2G", dast: 42587 },
-{ wallet: "3B9X8W1Q7P2F5M0T6N1V7R9Y4g9K2J8B7P5F9F1M8Z9V", dast: 53742 },
-{ wallet: "G3T8Q2B7M1X9P6Y5N0R4V3T2W9F1J5V2Q7F1X6R8B0K2", dast: 63298 },
-{ wallet: "X3aQ9Z5F6Y7R4W0P1K2J8V9m3N7Y2B5t1F6X4P9R3B2T", dast: 51356 },
-{ wallet: "Y2J1r9X5F7P6V2M9t0B3Q7W8P4N3B6Z0F5Y1J8V4M9R2", dast: 38723 },
-{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast: 48657 },
-{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 53482 },
-{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 12359 },
-{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 35481 },
-{ wallet: "X3F2P1V9r7K5bY8W0J6T4L2GzQ8N1F5mV0", dast: 76514 },
-{ wallet: "L1Z8T2R3V5Q9m6F7W4K2J9Y0X7b4P1T8g5", dast: 42140 },
-{ wallet: "N7B1F3X8Y4L9P2V5W6T0rJ0K2Z4m7T9W1Y", dast: 62950 },
-{ wallet: "K5T9Y1X7J2R4P3V8W0L6b9Q3F2N4m0Z9Y", dast: 53820 },
-{ wallet: "M9F1T4P5Y2L3Z7X0W8r6K1J9V5b7N2T3R", dast: 59617 },
-{ wallet: "B6W2F1V8K0X9T3R7P4L5Y6J1m0Q2N5b3T", dast: 47591 },
-{ wallet: "Q9X2Y5R7K0L3F8T1J6W4P9V2N5b3Y0Z9T", dast: 52063 },
-{ wallet: "N4K7T9F2W1J5Y0L8X3V0R2Q6P7m5T9b1F", dast: 55037 },
-{ wallet: "L0F5X3Y1V9P8T2W7R6J3N4K1b0Z9Q4V2Y", dast: 67829 },
-{ wallet: "T7P6Y3V9X1R2F0W5L0J9b8K4Z3N1T2F9Y", dast: 43205 },
-{ wallet: "F3W8K5T9Y1X6P2V7L4J2R0N0b7Q9T4V1Y", dast: 54631 },
-{ wallet: "K9T2F1W0P5Y8V7R3L6X4J9N0b7Y3T4K5Y", dast: 60850 },
-{ wallet: "R8Y4F1L2P0W9T5K3X6V1J7N2Q3m9Y0T9X", dast: 56910 },
-{ wallet: "Z2T5R9F0Y7L8P1V4X3W9J6K2N1b7T5Q3Y", dast: 48942 },
-{ wallet: "F7T9Y3L1R4P2W6X5V0K9J8b0N2Y7T5Q9", dast: 63456 },
-{ wallet: "X1R9P4Y2T5L7V8W6K0F3J0N1Z2Y4b9T0Y", dast: 55978 },
-{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast:42957 },
-{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast: 62957 },
-{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 59482 },
-{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 62359 },
-{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 45481 },
-{ wallet: "X3F2P1V9r7K5bY8W0J6T4L2GzQ8N1F5mV0", dast: 71514 },
-{ wallet: "L1Z8T2R3V5Q9m6F7W4K2J9Y0X7b4P1T8g5", dast: 47140 },
-{ wallet: "N7B1F3X8Y4L9P2V5W6T0rJ0K2Z4m7T9W1Y", dast: 66950 },
-{ wallet: "K5T9Y1X7J2R4P3V8W0L6b9Q3F2N4m0Z9Y", dast: 53220 },
-{ wallet: "G3pTb7V8L2x0Y9Zk5JmF4r1tV0b3NzK1Wqg6", dast: 62957 },
-{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 59482 },
-{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 62359 },
-{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 45481 },
-{ wallet: "X3F2P1V9r7K5bY8W0J6T4L2GzQ8N1F5mV0", dast: 71514 },
-{ wallet: "L1Z8T2R3V5Q9m6F7W4K2J9Y0X7b4P1T8g5", dast: 47140 },
-{ wallet: "N7B1F3X8Y4L9P2V5W6T0rJ0K2Z4m7T9W1Y", dast: 66950 },
-{ wallet: "K5T9Y1X7J2R4P3V8W0L6b9Q3F2N4m0Z9Y", dast: 53220 },
-{ wallet: "M9F1T4P5Y2L3Z7X0W8r6K1J9V5b7N2T3R", dast: 59417 },
-{ wallet: "B6W2F1V8K0X9T3R7P4L5Y6J1m0Q2N5b3T", dast: 47191 },
-{ wallet: "Q9X2Y5R7K0L3F8T1J6W4P9V2N5b3Y0Z9T", dast: 52063 },
-{ wallet: "N4K7T9F2W1J5Y0L8X3V0R2Q6P7m5T9b1F", dast: 55837 },
-{ wallet: "L0F5X3Y1V9P8T2W7R6J3N4K1b0Z9Q4V2Y", dast: 670829 },
-{ wallet: "T7P6Y3V9X1R2F0W5L0J9b8K4Z3N1T2F9Y", dast: 43805 },
-{ wallet: "F3W8K5T9Y1X6P2V7L4J2R0N0b7Q9T4V1Y", dast: 54431 },
-{ wallet: "K9T2F1W0P5Y8V7R3L6X4J9N0b7Y3T4K5Y", dast: 60150 },
-{ wallet: "R8Y4F1L2P0W9T5K3X6V1J7N2Q3m9Y0T9X", dast: 56310 },
-{ wallet: "Z2T5R9F0Y7L8P1V4X3W9J6K2N1b7T5Q3Y", dast: 48542 },
-{ wallet: "F7T9Y3L1R4P2W6X5V0K9J8b0N2Y7T5Q9", dast: 63406 },
-{ wallet: "X1R9P4Y2T5L7V8W6K0F3J0N1Z2Y4b9T0Y", dast: 55278 },
-{ wallet: "M9F1T4P5Y2L3Z7X0W8r6K1J9V5b7N2T3R", dast: 5948617 },
-{ wallet: "B6W2F1V8K0X9T3R7P4L5Y6J1m0Q2N5b3T", dast: 47101 },
-{ wallet: "Q9X2Y5R7K0L3F8T1J6W4P9V2N5b3Y0Z9T", dast: 52063 },
-{ wallet: "N4K7T9F2W1J5Y0L8X3V0R2Q6P7m5T9b1F", dast: 89037 },
-{ wallet: "L0F5X3Y1V9P8T2W7R6J3N4K1b0Z9Q4V2Y", dast: 04829 },
-{ wallet: "T7P6Y3V9X1R2F0W5L0J9b8K4Z3N1T2F9Y", dast: 87205 },
-{ wallet: "F3W8K5T9Y1X6P2V7L4J2R0N0b7Q9T4V1Y", dast: 49631 },
-{ wallet: "K9T2F1W0P5Y8V7R3L6X4J9N0b7Y3T4K5Y", dast: 12850 },
-{ wallet: "R8Y4F1L2P0W9T5K3X6V1J7N2Q3m9Y0T9X", dast: 34910 },
-{ wallet: "Z2T5R9F0Y7L8P1V4X3W9J6K2N1b7T5Q3Y", dast: 57942 },
-{ wallet: "F7T9Y3L1R4P2W6X5V0K9J8b0N2Y7T5Q9", dast: 60856 },
-{ wallet: "X1R9P4Y2T5L7V8W6K0F3J0N1Z2Y4b9T0Y", dast: 23978 },
-{ wallet: "F5W8y9T6G2XvP1bL7F1K3V0qT8zR4J2YHn5", dast: 53592 },
-{ wallet: "B7Xh3F9Z2n1R5pL8Y6g3V5m4J0W2K1rGzT0", dast: 60359 },
-{ wallet: "Q6V1P2L3Z5F4W8r9N1Y7b3T9XJ0F6K2V7wD", dast: 42481 },
-{ wallet: "EB8W5taecg4UMG4T1uyMD4GXUB7n8S1p8hGtUcuaQce5", dast: 26514 },
-{ wallet: "FFa2azMyt6Ww8VHyxa2KNSfGwsY2Fq73bheoTi5QLjtt", dast: 92140 },
-{ wallet: "HkZKvRcjudAXcRGJmQ1CX76ForpMmrmNYHZbmpiFv3WN", dast: 32950 },
-{ wallet: "CvHyWFZ5fpKNSL3teNeGymQ9S4u5jgWRY4M6Zf5eCGU6", dast: 24820 },
-{ wallet: "HXfAVApN1nCJE48PWW7FXbnWeQzCr7hDzTD9G9HknHP7", dast: 48617 },
-{ wallet: "BgmJGrsewwBvAve4cgrVS52aNL7hHmdfs4NKqLaEi93S", dast: 10591 },
-{ wallet: "9nw1YPWq9e8iA2ve9oJFwpBkMsKEpTdtmF9yMW9TvLPD", dast: 04063 },
-{ wallet: "HCosrG7cCoGMWA8HkvwpA3HTnwcNEoPxAndg3s77esrR", dast: 89037 },
-{ wallet: "3BLFc4nhPbRhU8xp33pSvb93v2Gf1xopkaWEnDdbxB6F", dast: 04829 },
-{ wallet: "f4mdD3eYXWxUoK9SW5xNRNoe1TYvwss7KPegu2xcJRD", dast: 47205 },
-{ wallet: "FTpNykmTsPm5JYgUNGfyu1LTfVo1y9EAQTaaG9eRnoQf", dast: 49631 },
-{ wallet: "4gmFsuVQLEZ1sYoSiUSQC3JDSPLPN3qW87joAXCZaaF2", dast: 12850 },
-{ wallet: "H8fVhYyK7XuvJpVqcBGcRpU328A8MjtKm5djNatCcW1c", dast: 34910 },
-{ wallet: "2idaHvej9dnfTAJSs72SWSVodVnTyq8Z3EfzDsiPzLLD", dast: 57942 },
-{ wallet: "67qRhWhUCrPkUFZ9k7sqwCjSGf8vHezo5RqTzyuhDPgX", dast: 40856 },
-{ wallet: "EM6mPXTVG8ZangQcBCS6aQ8AqJYaupC9FGoqN9vQrRcA", dast: 23978 },
-{ wallet: "818zo4YEqbESSLQJJWSYYNpo4xY4t1684SYUV1YvzPwq", dast: 23978 },
- { wallet: "HeBqxTTnToKpC9WMF6fGJNd7HWkG538NQbwCWBsRg4mo", dast:948617 },
-{ wallet: "6FTLwSfj4o2sBeX5DqGDup7smp9RYCpV9qWinT4JSZHc", dast: 10591 },
-{ wallet: "4CpYSTMe8RQQ95Km46wGBBjcMg9jHqYLGLUNezMTQmiF", dast: 4063 },
-{ wallet: "3wQYskTdSJwjcZP32SmqvGmeXJGT6kWqpcwzaCZqHN3o", dast: 89037 },
-{ wallet: "5hV3WpuMSM4do5HaRzSg1arrsPgCSzBZREXZ3eNuZ4kN", dast: 04829 },
-{ wallet: "BH5MqX1BcG1W4GXN983YZaZ6DR4j3Qctz549q2NSUTJ5", dast: 87205 },
-{ wallet: "6uHpA6dpdepeVsju6WKvQ2buX4us7wTJtPDZQdh5fcFd", dast: 49631 },
-{ wallet: "42TdXD1XpocMPq11RpM3owwJ2QPzsDQkvwmxBoJjMRfy", dast: 12850 },
-{ wallet: "5YHop4ydrmn2kZMcypdKEvUydEH3wViseQUwziV91Uwt", dast: 34910 },
-{ wallet: "B69Aiws4v5fvoFhLcmvBgXhW6sb9idHGVDikGYtWJAcZ", dast: 57942 },
-{ wallet: "EGwKeaoBgteCRAgN3ZU8tE3kPZ4nnfVv4vDPdbUVkcfi", dast: 40856 },
-{ wallet: "EvneJhc91G9TpZjbkg4YDfQQ6sYYtTYqHhkkgaM9TanG", dast: 23978 },
+    <section>
+        <h2>Hoş Geldiniz!</h2>
+        <p>Coomardog, eğlenceli bir memecoin'dir! Şimdi, kripto dünyasına adım atarken keyifli bir deneyim yaşayın.</p>
+        <p>Memecoin’inizi <strong>pump.fun</strong> üzerinden satın alabilirsiniz!</p>
+        <a href="https://pump.fun/coin/FqzAJnDPKJZuNMRDeEqk3U5itsdPxro41wAQVgazpump" class="cta-button" target="_blank">Satın Al</a>
+    </section>
 
+    <section>
+        <h2>Coomardog Hakkında</h2>
+        <p>Coomardog, Solana tabanlı, hızla yayılan ve eğlenceli bir memecoin'dir. Dünyanın her yerinden kullanıcılar, Coomardog ile hem eğleniyor hem de kazanç sağlıyor!</p>
+    </section>
 
-            // 490 more wallets can be added here in a similar pattern
-        ];
+    <section>
+        <h2>Coin Kontrat Adresi (CA)</h2>
+        <p><strong>CA: FqzAJnDPKJZuNMRDeEqk3U5itsdPxro41wAQVgazpump</strong></p>
+    </section>
 
-        const addressContainer = document.getElementById("addresses");
+    <section class="social-icons">
+        <a href="https://twitter.com/coomardog" target="_blank">🐦</a>
+        <a href="https://t.me/coomardog" target="_blank">💬</a>
+    </section>
 
-        addresses.forEach(entry => {
-            const addressDiv = document.createElement("div");
-            addressDiv.classList.add("address");
-            
-            const walletText = document.createElement("span");
-            walletText.textContent = entry.wallet;
-
-            const dastText = document.createElement("span");
-            dastText.classList.add("da-st");
-            dastText.textContent = `${entry.dast} DAST`;
-
-            addressDiv.appendChild(walletText);
-            addressDiv.appendChild(dastText);
-            addressContainer.appendChild(addressDiv);
-        });
-    </script>
+    <footer>
+        <p>&copy; 2025 Coomardog Memecoin. Tüm hakları saklıdır.</p>
+    </footer>
 </body>
 </html>
